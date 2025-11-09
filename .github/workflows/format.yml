@@ -1,18 +1,16 @@
-name: SwiftFormat
+name: Run SwiftFormat
 on:
   pull_request:
-    paths:
-      - '**.swift'
+    branches:
+      - main
   push:
     branches:
       - main
-    paths:
-      - '**.swift'
 env:
   SWIFTFORMAT_VERSION: "0.58.5"
   SWIFTFORMAT_CHECKSUM: "f9402a773657ebcf6c34464f501efac32910f5ddfe582740a7816a2b919ca357"
 jobs:
-  swiftformat:
+  format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -22,9 +20,9 @@ jobs:
           curl -L "https://github.com/nicklockwood/SwiftFormat/releases/download/${SWIFTFORMAT_VERSION}/swiftformat_linux.zip" -o swiftformat.zip
           echo "${SWIFTFORMAT_CHECKSUM}  swiftformat.zip" | sha256sum -c -
           unzip swiftformat.zip
-          chmod +x swiftformat
+          chmod +x swiftformat_linux
           mkdir -p "$HOME/.local/bin"
-          mv swiftformat "$HOME/.local/bin/"
+          mv swiftformat_linux "$HOME/.local/bin/swiftformat"
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Check formatting
         run: |
