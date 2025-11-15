@@ -19,5 +19,20 @@ let package = Package(
             ],
             path: "Sources/Chapter01"
         ),
+        .executableTarget(
+            name: "Chapter02",
+            dependencies: [
+                .product(name: "SystemPackage", package: "swift-system"),
+            ],
+            path: "Sources/Chapter02"
+        ),
+        .testTarget(
+            name: "Chapter02Tests",
+            dependencies: [
+                "Chapter02",
+                .product(name: "SystemPackage", package: "swift-system"),
+            ],
+            path: "Tests/Chapter02Tests"
+        ),
     ]
 )
